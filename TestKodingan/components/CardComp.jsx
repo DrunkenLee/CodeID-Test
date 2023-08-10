@@ -13,8 +13,10 @@ const CardComp = () => (
         <View style={styles.hStack}>
           <Avatar.Image size={60} source={require("../assets/ava1.jpg")} />
           <View style={styles.vStack}>
-            <Text style={{ fontWeight: "bold" }}>Michael Fransisco</Text>
-            <Text style={{ fontStyle: "italic", fontSize: 12 }}>
+            <Text style={{ fontWeight: "bold", fontSize: 12 }}>
+              Michael Fransisco
+            </Text>
+            <Text style={{ fontStyle: "italic", fontSize: 10 }}>
               Fullstack Developer
             </Text>
           </View>
@@ -26,10 +28,10 @@ const CardComp = () => (
               top: 12,
             }}
           >
-            <Text style={{ fontSize: 10, fontStyle: "italic" }}>
+            <Text style={{ fontSize: 8, fontStyle: "italic" }}>
               Member since
             </Text>
-            <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+            <Text style={{ fontWeight: "bold", fontSize: 10 }}>
               01 Juni 2021
             </Text>
           </View>

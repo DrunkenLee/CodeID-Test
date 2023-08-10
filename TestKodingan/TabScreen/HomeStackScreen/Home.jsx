@@ -4,10 +4,10 @@ import {
   MD3LightTheme as DefaultTheme,
   PaperProvider,
 } from "react-native-paper";
-import CardComp from "./components/CardComp";
+import CardComp from "../../components/CardComp";
 import { IconButton, MD3Colors } from "react-native-paper";
-import CarouselComp from "./components/CarouselComp";
-import OnlineCardComp from "./components/OnlineCardComp";
+import CarouselComp from "../../components/CarouselComp";
+import OnlineCardComp from "../../components/OnlineCardComp";
 
 const Home = () => {
   const theme = {
