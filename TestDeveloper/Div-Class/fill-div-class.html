@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fill Div Class</title>
+  </head>
+  <body>
+    <div class="fv-plugins-message-container invalid-feedback"></div>
+    <div class="text-container"></div>
+    <div class="random-container"></div>
+  </body>
+</html>
+
+<script>
+  const divsWithInvalidFeedback =
+    document.querySelectorAll(".invalid-feedback");
+
+  divsWithInvalidFeedback.forEach((div) => {
+    if (!div.classList.contains("invalid-feedback")) {
+      div.classList.add("invalid-feedback");
+    }
+  });
+</script>

@@ -1,0 +1,27 @@
+/* Menyembunyikan sesuatu pada media tertentu */
+@media screen {
+  .yangdisembunyikan {
+    display: none;
+  }
+}
+
+/* menggunakan cara overflow dapat menyembukikan element tertentu */
+.sebagianIsiDisembunyikan {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+}
+
+/* menempatkan text di luar area visible */
+.text-diluar-area {
+  text-indent: -9999px;
+}
+
+/* dengan ini , screen reader tetap akan dapat membaca element :) */
+.text-tidakKasatMata {
+  font-size: 0;
+  line-height: 0;
+}

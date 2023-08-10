@@ -2,7 +2,6 @@ import { View, Text, ScrollView } from "react-native";
 import React from "react";
 import NotificationCard from "../../components/NotificationCard";
 import data from "../../data/notifications.json";
-import Icon from "react-native-vector-icons/FontAwesome";
 
 const Notification = () => {
   return (

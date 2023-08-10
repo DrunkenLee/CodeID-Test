@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sub-Category Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .chart-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      canvas {
+        margin: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chart-container">
+      <canvas id="categoryChart" width="400" height="400"></canvas>
+    </div>
+    <div class="chart-container">
+      <canvas id="subCategoryChart" width="400" height="400"></canvas>
+    </div>
+
+    <script>
+      const dataMentah = {
+        code: 200,
+        msg: "oke",
+        data: [
+          {
+            id: 14,
+            name: "building.create",
+          },
+          {
+            id: 16,
+            name: "building.delete",
+          },
+          {
+            id: 15,
+            name: "building.edit",
+          },
+          {
+            id: 13,
+            name: "building.index",
+          },
+          {
+            id: 33,
+            name: "dashboard.index",
+          },
+          {
+            id: 18,
+            name: "energy.create",
+          },
+          {
+            id: 20,
+            name: "energy.delete",
+          },
+          {
+            id: 19,
+            name: "energy.edit",
+          },
+        ],
+      };
+
+      const script = document.createElement("script");
+      script.src = "https://cdn.jsdelivr.net/npm/chart.js";
+      script.onload = function () {
+        const ctxCategory = document
+          .getElementById("categoryChart")
+          .getContext("2d");
+        const ctxSubCategory = document
+          .getElementById("subCategoryChart")
+          .getContext("2d");
+
+        function transformOriginalData(originalData) {
+          const transformedData = {
+            code: originalData.code,
+            msg: originalData.msg,
+            data: {},
+          };
+
+          originalData.data.forEach((item) => {
+            const [category, action] = item.name.split(".");
+            const categoryName =
+              category.charAt(0).toUpperCase() + category.slice(1);
+
+            if (!transformedData.data[categoryName]) {
+              transformedData.data[categoryName] = [];
+            }
+
+            transformedData.data[categoryName].push({
+              id: item.id,
+              name: action.charAt(0).toUpperCase() + action.slice(1),
+              html_id: item.name,
+            });
+          });
+
+          return transformedData;
+        }
+
+        const Mydata = transformOriginalData(dataMentah);
+
+        const categoryCounts = Object.keys(Mydata.data).map((category) => ({
+          category,
+          count: Mydata.data[category].length,
+        }));
+
+        const subCategoryCounts = {};
+        Object.values(Mydata.data).forEach((subCategories) => {
+          subCategories.forEach((subCategory) => {
+            const { name } = subCategory;
+            subCategoryCounts[name] = (subCategoryCounts[name] || 0) + 1;
+          });
+        });
+
+        new Chart(ctxCategory, {
+          type: "bar",
+          data: {
+            labels: categoryCounts.map((entry) => entry.category),
+            datasets: [
+              {
+                label: "Number of Sub-Categories",
+                data: categoryCounts.map((entry) => entry.count),
+                backgroundColor: "rgba(75, 192, 192, 0.2)",
+                borderColor: "rgb(75, 192, 192)",
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+
+        new Chart(ctxSubCategory, {
+          type: "bar",
+          data: {
+            labels: Object.keys(subCategoryCounts),
+            datasets: [
+              {
+                label: "Total Sub-Category Count",
+                data: Object.values(subCategoryCounts),
+                backgroundColor: "rgba(255, 99, 132, 0.2)",
+                borderColor: "rgb(255, 99, 132)",
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+      };
+      document.head.appendChild(script);
+    </script>
+  </body>
+</html>
